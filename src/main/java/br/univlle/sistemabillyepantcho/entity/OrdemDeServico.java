@@ -17,7 +17,6 @@ public class OrdemDeServico {
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     private Cliente cliente;
 
-
     public long getId() {
         return id;
     }

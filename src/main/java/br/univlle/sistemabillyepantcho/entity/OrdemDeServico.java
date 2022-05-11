@@ -2,6 +2,7 @@ package br.univlle.sistemabillyepantcho.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ public class OrdemDeServico {
     private Veiculo veiculo;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "OrdemDeServico_id")
-    private ArrayList<ItensOrdemDeServico> listaDeServico = new ArrayList<>();
+    private List<ItensOrdemDeServico> listaDeServico = new ArrayList<>();
     
 
     public long getId() {
@@ -40,7 +41,7 @@ public class OrdemDeServico {
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
     }
-    public ArrayList<ItensOrdemDeServico> getItensDeServico() {
+    public List<ItensOrdemDeServico> getItensDeServico() {
         return listaDeServico;
     }
     public void setItensDeServico(ArrayList<ItensOrdemDeServico> itensDeServico) {

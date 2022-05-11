@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class OrdemDeServico {
@@ -19,8 +21,11 @@ public class OrdemDeServico {
     private Date data;
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     private Cliente cliente;
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     private Veiculo veiculo;
-    private ArrayList<ItensOrdemDeServico> itensDeServico = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "OrdemDeServico_id")
+    private ArrayList<ItensOrdemDeServico> listaDeServico = new ArrayList<>();
     
 
     public long getId() {
@@ -36,10 +41,10 @@ public class OrdemDeServico {
         this.veiculo = veiculo;
     }
     public ArrayList<ItensOrdemDeServico> getItensDeServico() {
-        return itensDeServico;
+        return listaDeServico;
     }
     public void setItensDeServico(ArrayList<ItensOrdemDeServico> itensDeServico) {
-        this.itensDeServico = itensDeServico;
+        this.listaDeServico = itensDeServico;
     }
     public Date getData() {
         return data;

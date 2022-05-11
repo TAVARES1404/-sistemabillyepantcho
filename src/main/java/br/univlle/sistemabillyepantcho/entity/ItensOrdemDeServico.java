@@ -14,8 +14,16 @@ public class ItensOrdemDeServico {
     private int codProduto;
     private int qtdFaturado;
     private float valorTotalItem;
+    private Produto produto;
+    
     public long getId() {
         return id;
+    }
+    public Produto getProduto() {
+        return produto;
+    }
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
     public void setId(long id) {
         this.id = id;

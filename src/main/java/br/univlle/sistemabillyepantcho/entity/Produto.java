@@ -21,7 +21,7 @@ public class Produto {
     private int codigoProduto;
     private float valorProduto;
     @JoinColumn(name ="produto_id")
-    private List<String> compatibilidade = new ArrayList<>();
+    private List<Carro> compatibilidade = new ArrayList<>();
     
     public long getId() {
         return id;
@@ -53,10 +53,10 @@ public class Produto {
     public void setValorProduto(float valorProduto) {
         this.valorProduto = valorProduto;
     }
-    public List<String> getCompatibilidade() {
+    public List<Carro> getCompatibilidade() {
         return compatibilidade;
     }
-    public void setCompatibilidade(List<String> compatibilidade) {
+    public void setCompatibilidade(List<Carro> compatibilidade) {
         this.compatibilidade = compatibilidade;
     }
 

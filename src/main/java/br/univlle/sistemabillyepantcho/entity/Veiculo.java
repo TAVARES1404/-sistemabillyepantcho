@@ -15,6 +15,7 @@ public class Veiculo {
     private String marca;
     private String cor;
     private float kilometragem;
+    
     public long getId() {
         return id;
     }

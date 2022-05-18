@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ItensOrdemDeServico {
@@ -19,7 +19,7 @@ public class ItensOrdemDeServico {
     private int codProduto;
     private int qtdFaturado;
     private float valorTotalItem;
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="produto_id")
     private List<Produto> produtos = new ArrayList<>();
     

@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Produto {
@@ -22,7 +22,7 @@ public class Produto {
     private String marcaProduto;
     private int codigoProduto;
     private float valorProduto;
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name ="produto_id")
     private List<Carro> compatibilidade = new ArrayList<>();
     

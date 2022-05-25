@@ -1,14 +1,12 @@
 package br.univlle.sistemabillyepantcho.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -21,19 +19,16 @@ public class ItensOrdemDeServico {
     private float valorTotalItem;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name ="produto_id")
-    private List<Produto> produtos = new ArrayList<>();
+    private Produto produto;
     
     public long getId() {
         return id;
     }
-
-  
-    public List<Produto> getProdutos() {
-        return produtos;
+    public Produto getProdutos() {
+        return produto;
     }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setProdutos(Produto produtos) {
+        this.produto = produtos;
     }
 
     public void setId(long id) {

@@ -1,44 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    
-    <head th:include="layout :: htmlhead">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-    <body>
-        <nav th:replace="layout :: menu">(menu)</nav>
-        <div class="container">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            ID
-                        </th>
-                        <th>
-                            Nome
-                        </th>
-                        <th>
-                            Telefone
-                        </th>
-                        <th>
-                            Endereço
-                        </th>
-                        <th>
-                            Bairro
-                        </th>
-                        <th>
-                            Cidade
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
+<head th:include="layout :: htmlhead">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
-                </tbody>
-            </table>
-        </div>
+<body>
+    <nav th:replace="layout :: menu">(menu)</nav>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Nome
+                    </th>
+                    <th>
+                        Telefone
+                    </th>
+                    <th>
+                        Endereço
+                    </th>
+                    <th>
+                        Bairro
+                    </th>
+                    <th>
+                        Cidade
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="umCliente : ${listaClientes}">
+                    <td th:text="${umCliente.id}"></td>
+                    <td th:text="${umCliente.nome}"></td>
+                    <td th:text="${umCliente.telefone}"></td>
+                    <td th:text="${umCliente.endereco}"></td>
+                    <td th:text="${umCliente.bairro}"></td>
+                    <td th:text="${umCliente.cidade}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <div th:include="layout :: footer">(footer)</div>
-        
-    </body>
+    <div th:include="layout :: footer">(footer)</div>
+
+</body>
+
 </html>

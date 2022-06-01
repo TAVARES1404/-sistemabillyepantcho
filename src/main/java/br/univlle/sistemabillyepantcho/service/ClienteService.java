@@ -1,11 +1,12 @@
 package br.univlle.sistemabillyepantcho.service;
 
 import java.util.List;
-import br.univlle.sistemabillyepantcho.entity.Cliente;
+
+import br.univlle.sistemabillyepantcho.dto.ClienteDTO;
 
 public interface ClienteService {
 
-    public List<Cliente>getAll();
+    public List<ClienteDTO>getAll();
     
     
 }

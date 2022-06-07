@@ -1,9 +1,9 @@
-package br.univlle.sistemabillyepantcho.repository;
+package br.univille.sistemabillyepantcho.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.univlle.sistemabillyepantcho.entity.Cliente;
+import br.univille.sistemabillyepantcho.entity.Cliente;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente,Long>{

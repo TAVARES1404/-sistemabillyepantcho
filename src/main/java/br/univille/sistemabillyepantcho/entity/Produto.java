@@ -1,4 +1,4 @@
-package br.univlle.sistemabillyepantcho.entity;
+package br.univille.sistemabillyepantcho.entity;
 
 import java.util.ArrayList;
 import java.util.List;

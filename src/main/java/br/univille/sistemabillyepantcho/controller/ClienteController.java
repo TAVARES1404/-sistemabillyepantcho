@@ -1,4 +1,4 @@
-package br.univlle.sistemabillyepantcho.controller;
+package br.univille.sistemabillyepantcho.controller;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.univlle.sistemabillyepantcho.entity.Cliente;
-import br.univlle.sistemabillyepantcho.service.ClienteService;
+import br.univille.sistemabillyepantcho.dto.ClienteDTO;
+import br.univille.sistemabillyepantcho.entity.Cliente;
+import br.univille.sistemabillyepantcho.service.ClienteService;
 
 @Controller
 @RequestMapping("/cliente")
@@ -20,7 +21,7 @@ public class ClienteController {
 
     @GetMapping
     public ModelAndView index(){
-        List<Cliente> listaCliente = service.getAll();
+        List<ClienteDTO> listaCliente = service.getAll();
         return new ModelAndView ("cliente/index","listaClientes",listaCliente);
     }
     

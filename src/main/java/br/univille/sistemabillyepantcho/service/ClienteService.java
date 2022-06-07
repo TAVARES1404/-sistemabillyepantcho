@@ -1,8 +1,8 @@
-package br.univlle.sistemabillyepantcho.service;
+package br.univille.sistemabillyepantcho.service;
 
 import java.util.List;
 
-import br.univlle.sistemabillyepantcho.dto.ClienteDTO;
+import br.univille.sistemabillyepantcho.dto.ClienteDTO;
 
 public interface ClienteService {
 

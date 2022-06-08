@@ -24,5 +24,13 @@ public class ClienteServiceImpl implements ClienteService{
     public List<ClienteDTO> getAll() {
         return mapper.mapCliente(repository.findAll());
     }
+
+    @Override
+    public ClienteDTO save(ClienteDTO cliente) {
+        Cliente clienteEntitty = mapper.mapClienteDTO(cliente);
+        repository.save(clienteEntitty);
+        return mapper.mapCliente(clienteEntitty);
+
+    }
     
 }

@@ -6,7 +6,8 @@ import br.univille.sistemabillyepantcho.dto.ClienteDTO;
 
 public interface ClienteService {
 
-    public List<ClienteDTO>getAll();
+    List<ClienteDTO>getAll();
+    ClienteDTO save(ClienteDTO clienteDTO);
     
     
 }

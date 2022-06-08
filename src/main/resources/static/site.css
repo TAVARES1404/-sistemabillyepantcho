@@ -2,11 +2,21 @@
             background-color: rgba(74, 237, 248, 0.281);
         }
         
-        .navbar {
-            background-color: aqua;
-        }
-        
         nav ul li {
             display: inline-flex;
             padding: 10px;
         }
+
+        .btn-primary {
+            margin: 10px;
+            margin-left: 0;
+            color: #fff;
+            background-color: #000000;
+            border-color: #00ccff;
+        }
+
+        .nav-link {
+            color: #00ccff;
+        }
+
+        

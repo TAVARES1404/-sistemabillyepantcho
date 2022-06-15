@@ -10,7 +10,7 @@
     <div class="container">
 
         <a th:href="@{/cliente/novo}" class=" btn btn-primary">Novo</a>
-        <table class="table">
+        <table class="table" id="clientes">
             <thead>
                 <tr>
                     <th>
@@ -31,6 +31,9 @@
                     <th>
                         Cidade
                     </th>
+                    <th>
+                        Opção
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -41,12 +44,34 @@
                     <td th:text="${umCliente.endereco}"></td>
                     <td th:text="${umCliente.bairro}"></td>
                     <td th:text="${umCliente.cidade}"></td>
+                    <td><a th:href="@{'/cliente/alterar/' + ${umCliente.id}}" class="btn btn-primary">Alterar</a>
+                        <button class="btn btn-danger js-delete" th:data-id="${umCliente.id}">Excluir</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <div th:include="layout :: footer">(footer)</div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#clientes").on('click', ".js-delete", function () {
+                let button = $(this);
+                bootbox.confirm("Confirma a exclusão do registro?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/cliente/delete/" + button.attr("data-id"),
+                            method: "GET",
+                            success: function () {
+                                window.location.href = "/cliente/";
+                            }
+                        });
+                    }
+
+                });
+            });
+        });
+    </script>
 
 </body>
 

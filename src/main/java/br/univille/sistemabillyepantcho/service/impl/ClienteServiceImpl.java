@@ -1,6 +1,7 @@
 package br.univille.sistemabillyepantcho.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,23 @@ public class ClienteServiceImpl implements ClienteService{
         repository.save(clienteEntitty);
         return mapper.mapCliente(clienteEntitty);
 
+    }
+
+    @Override
+    public ClienteDTO buscarPeloId(long id) {
+        Optional<Cliente> cliente = repository.findById(id);   
+        if (cliente.isPresent()){
+            Cliente clienteEntity = cliente.get();
+            return mapper.mapCliente(clienteEntity);
+        }    
+        
+        return new ClienteDTO();
+    }
+
+    @Override
+    public void delete(long id) {
+        repository.deleteById(id);
+        
     }
     
 }

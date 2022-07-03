@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:include="layout :: htmlhead">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <nav th:replace="layout :: menu">(menu)</nav>
+    <div class="container">
+
+        <a th:href="@{/carro/novo}" class=" btn btn-primary">Novo</a>
+        <table class="table" id="carros">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Marca   
+                    </th>
+                    <th>
+                        Modelo
+                    </th>
+                    <th>
+                        Motor
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="umCarro : ${listaCarros}">
+                    <td th:text="${umCarro.id}"></td>
+                    <td th:text="${umCarro.marca}"></td>
+                    <td th:text="${umCarro.modelo}"></td>
+                    <td th:text="${umCarro.motor}"></td>
+                    <td><a th:href="@{'/carro/alterar/' + ${umCarro.id}}" class="btn btn-primary">Alterar</a>
+                        <button class="btn btn-danger js-delete" th:data-id="${umCarro.id}">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:include="layout :: footer">(footer)</div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#carros").on('click', ".js-delete", function () {
+                let button = $(this);
+                bootbox.confirm("Confirma a exclusão do registro?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/carro/delete/" + button.attr("data-id"),
+                            method: "GET",
+                            success: function () {
+                                window.location.href = "/carro/";
+                            }
+                        });
+                    }
+
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,6 +1,5 @@
 package br.univille.sistemabillyepantcho.dto;
 
-
 public class ClienteDTO {
 
     private long id;

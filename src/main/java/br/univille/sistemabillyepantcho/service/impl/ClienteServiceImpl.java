@@ -18,7 +18,6 @@ public class ClienteServiceImpl implements ClienteService{
     
     @Autowired
     private ClienteRepository repository;
-
     private ClienteMapper mapper = Mappers.getMapper(ClienteMapper.class);
 
     @Override

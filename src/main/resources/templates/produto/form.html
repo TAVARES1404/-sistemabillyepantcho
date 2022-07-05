@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:include="layout :: htmlhead">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <nav th:replace="layout :: menu">(menu)</nav>
+    <div class="container">
+        
+        <form th:action="@{/produto/(form)}" th:object="${produto}"method="post">
+
+            <input type="hidden" th:field ="*{id}">
+            <div class="form-group">
+                <label for="txtnome">Nome</label>
+                <input type="text" class="form-control" id="txtnome" th:field="*{nomeProduto}">
+            </div>
+            <div class="form-group">
+                <label for="txtmarca">Marca</label>
+                <input type="text" class="form-control" id="txttelefone"  th:field="*{marcaProduto}">
+            </div>
+            <div class="form-group">
+                <label for="txtcodigo">Código</label>
+                <input type="text" class="form-control" id="txtendereco"  th:field="*{codigoProduto}">
+            </div>
+            <div class="form-group">
+                <label for="txtvalor">Valor</label>
+                <input type="text" class="form-control" id="txtbairro"  th:field="*{valorProduto}">
+            </div>
+            <div class="form-group">
+                <label for="txtcompatibilidade">Compatibilidade</label>
+                <select class="form-select" th:field="${compatibilidadeselecionada}">
+                    <option th:each="umcarro : ${listaCarro}" th:value="${umcarro}" th:text="${umcarro.modelo}" ></option>
+                </select>
+                <input name="additem" value="adicionar" type="submit" class="btn btn-primary">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Modelo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each ="umacompatibilidade : *{compatibilidade} ">
+                            <td th:text =" ${umacompatibilidade.modelo}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <input name="save" type="submit" class="btn btn-primary">
+        </form>
+    </div>
+
+    <div th:include="layout :: footer">(footer)</div>
+
+</body>
+
+</html>

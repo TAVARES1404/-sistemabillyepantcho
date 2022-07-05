@@ -17,33 +17,30 @@
                         ID
                     </th>
                     <th>
-                        Marca   
+                        Nome
                     </th>
                     <th>
-                        Modelo
+                        Marca
                     </th>
                     <th>
-                        Cor
+                        Código
                     </th>
                     <th>
-                        Placa
+                        Valor
                     </th>
                     <th>
-                        Km
-                    </th>
-                    <th>
-                        Opção
+                        Compatibilidade
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="umProduto : ${listaProdutos}">
                     <td th:text="${umProduto.id}"></td>
-                    <td th:text="${umProduto.marca}"></td>
-                    <td th:text="${umProduto.modelo}"></td>
-                    <td th:text="${umProduto.cor}"></td>
-                    <td th:text="${umProduto.placa}"></td>
-                    <td th:text="${umProduto.kilometragem}"></td>
+                    <td th:text="${umProduto.nomeProduto}"></td>
+                    <td th:text="${umProduto.marcaProduto}"></td>
+                    <td th:text="${umProduto.codigoProduto}"></td>
+                    <td th:text="${umProduto.valorProduto}"></td>
+                    <td th:text="${umProduto.compatibilidade}"></td>
                     <td><a th:href="@{'/produto/alterar/' + ${umProduto.id}}" class="btn btn-primary">Alterar</a>
                         <button class="btn btn-danger js-delete" th:data-id="${umProduto.id}">Excluir</button>
                     </td>

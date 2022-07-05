@@ -3,7 +3,6 @@ package br.univille.sistemabillyepantcho.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.univille.sistemabillyepantcho.entity.Carro;
 
 public class ProdutoDTO {
 
@@ -13,7 +12,14 @@ public class ProdutoDTO {
     private int codigoProduto;
     private float valorProduto;
     private List<CarroDTO> compatibilidade = new ArrayList<>();
+    private long idCompatibilidade;
     
+    public long getIdCompatibilidade() {
+        return idCompatibilidade;
+    }
+    public void setIdCompatibilidade(long idCompatibilidade) {
+        this.idCompatibilidade = idCompatibilidade;
+    }
     /**
      * @return the id
      */

@@ -22,7 +22,7 @@ public class Produto {
     private String marcaProduto;
     private int codigoProduto;
     private float valorProduto;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name ="produto_id")
     private List<Carro> compatibilidade = new ArrayList<>();
     

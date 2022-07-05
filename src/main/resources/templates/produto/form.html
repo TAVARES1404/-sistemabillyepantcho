@@ -31,7 +31,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             </div>
             <div class="form-group">
                 <label for="txtcompatibilidade">Compatibilidade</label>
-                <select class="form-select" th:field="${compatibilidadeselecionada}">
+                <select class="form-select" th:field="${produto.idCompatibilidade}">
                     
                     <option th:each="umcarro : ${listaCarro}" th:value="${umcarro.id}" th:text="${umcarro.modelo}" ></option>
                 </select>
@@ -43,8 +43,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each ="umacompatibilidade : ${produto.compatibilidade} ">
+                        <tr 
+                        th:each ="umacompatibilidade, stat  : ${produto.compatibilidade} ">
+                            <input type="hidden" th:field="${produto.compatibilidade[__${stat.index}__].id}"/>
+                            <input type="hidden" th:field="${produto.compatibilidade[__${stat.index}__].modelo}"/>
+                            <input type="hidden" th:field="${produto.compatibilidade[__${stat.index}__].Marca}"/>
+                            <input type="hidden" th:field="${produto.compatibilidade[__${stat.index}__].motor}"/>
                             <td th:text =" ${umacompatibilidade.modelo}"></td>
+                            <td>
+                                <button type="submit" name="remove" th:value="__${stat.index}__" class="btn btn-primary">Remover</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

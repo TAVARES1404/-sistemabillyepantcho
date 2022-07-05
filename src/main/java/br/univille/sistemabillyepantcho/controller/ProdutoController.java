@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,28 +36,27 @@ public class ProdutoController {
 
 
     @GetMapping("/novo")
-    public ModelAndView novo() {
+    public ModelAndView novo(Model model) {
         ProdutoDTO produto = new ProdutoDTO();
         List<CarroDTO> listaCarro = carroService.getAll();
-        HashMap <String, Object> dados = new HashMap<>();
-        dados.put("produto", produto);
-        dados.put("listaCarro", listaCarro);
-        dados.put("compatibilidadeselecionada", new CarroDTO());
-        return new ModelAndView("produto/form",dados);
+        model.addAttribute("produto", produto);
+        model.addAttribute("listaCarro", listaCarro);
+        model.addAttribute("compatibilidadeselecionada", 0);
+        return new ModelAndView("produto/form");
     }
 
     @PostMapping(params = {"save"})
-    public ModelAndView save(ProdutoDTO produto, CarroDTO compatibilidadeselecionada) {
+    public ModelAndView save(ProdutoDTO produto, Long compatibilidadeselecionada) {
         service.save(produto);
         return new ModelAndView("redirect:/produto");
     }
 
     @PostMapping(params = {"additem"})
-    public ModelAndView addItem(ProdutoDTO produto, CarroDTO compatibilidadeselecionada) {
+    public ModelAndView addItem(ProdutoDTO produto, Long compatibilidadeselecionada) {
         List<CarroDTO> listaCarro = carroService.getAll();
         HashMap <String, Object> dados = new HashMap<>();
         dados.put("listaCarro", listaCarro);
-        produto.getCompatibilidade().add(compatibilidadeselecionada);
+        //produto.getCompatibilidade().add(compatibilidadeselecionada);
         dados.put("produto", produto);
         dados.put("compatibilidadeselecionada", compatibilidadeselecionada);
         return new ModelAndView("produto/form",dados);

@@ -7,6 +7,9 @@ public class CarroDTO {
     private String modelo;
     private String motor;
     
+    public String toString(){
+        return this.modelo;
+    }
     /**
      * @return the id
      */

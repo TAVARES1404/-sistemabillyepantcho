@@ -1,15 +1,20 @@
 package br.univille.sistemabillyepantcho.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Veiculo { 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.MERGE})
+    private Cliente cliente;
     private String modelo;
     private String marca;
     private String cor;
@@ -60,7 +65,16 @@ public class Veiculo {
     public void setKilometragem(float kilometragem) {
         this.kilometragem = kilometragem;
     }
-
-
-    
+    /**
+     * @return the cliente
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+    /**
+     * @param cliente the cliente to set
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 }

@@ -10,14 +10,20 @@
     <div class="container">
 
         <a th:href="@{/veiculo/novo}" class=" btn btn-primary">Novo</a>
+        <button class="btn btn-primary" id="btnAlterar">Alterar</button>
+        <button class="btn btn-danger" id="btnExcluir">Excluir</button>
         <table class="table" id="veiculos">
             <thead>
                 <tr>
+                    <th></th>
                     <th>
                         ID
                     </th>
                     <th>
-                        Marca   
+                        Cliente
+                    </th>
+                    <th>
+                        Marca
                     </th>
                     <th>
                         Modelo
@@ -31,22 +37,18 @@
                     <th>
                         Km
                     </th>
-                    <th>
-                        Opção
-                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="umVeiculo : ${listaVeiculos}">
+                    <td><input type="checkbox" th:data-id="${umVeiculo.id}" class="js-check"></td>
                     <td th:text="${umVeiculo.id}"></td>
+                    <td th:text="${umVeiculo.cliente?.nome}"></td>
                     <td th:text="${umVeiculo.marca}"></td>
                     <td th:text="${umVeiculo.modelo}"></td>
                     <td th:text="${umVeiculo.cor}"></td>
                     <td th:text="${umVeiculo.placa}"></td>
                     <td th:text="${umVeiculo.kilometragem}"></td>
-                    <td><a th:href="@{'/veiculo/alterar/' + ${umVeiculo.id}}" class="btn btn-primary">Alterar</a>
-                        <button class="btn btn-danger js-delete" th:data-id="${umVeiculo.id}">Excluir</button>
-                    </td>
                 </tr>
             </tbody>
         </table>
@@ -54,21 +56,36 @@
 
     <div th:include="layout :: footer">(footer)</div>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#veiculos").on('click', ".js-delete", function () {
-                let button = $(this);
-                bootbox.confirm("Confirma a exclusão do registro?", function (result) {
-                    if (result) {
-                        $.ajax({
-                            url: "/veiculo/delete/" + button.attr("data-id"),
-                            method: "GET",
-                            success: function () {
-                                window.location.href = "/veiculo/";
-                            }
-                        });
-                    }
-
+        $(document).ready(function(){
+            $("#btnExcluir").on('click', function(){
+                bootbox.confirm("Confirma a exclusão do registro?", 
+                    function(result){
+                        if(result){
+                            $('input[type=checkbox]').each(function () {
+                                if(this.checked){
+                                    $.ajax({
+                                        url: '/veiculo/delete/' + $(this).attr("data-id"),
+                                        method: "GET",
+                                        success : function(){
+                                            window.location.href = "/veiculo/";
+                                        }
+                                    });
+                                }
+                            });
+                        }
                 });
+            });
+            $("#btnAlterar").on('click', function(){
+                $('input[type=checkbox]').each(function () {
+                    if(this.checked){
+                        window.location.href = "/veiculo/alterar/" + $(this).attr("data-id");
+                    }
+                });
+            });
+            $("#veiculo").on('click',"tr", function(){
+                let checkbox = $(this).find('.js-check');
+                console.log(checkbox);
+                checkbox.prop("checked",!checkbox.is(':checked'));
             });
         });
     </script>

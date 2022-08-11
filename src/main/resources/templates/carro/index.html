@@ -11,9 +11,12 @@
     <div class="container">
 
         <a th:href="@{/carro/novo}" class=" btn btn-primary">Novo</a>
+        <button class="btn btn-primary" id="btnAlterar">Alterar</button>
+        <button class="btn btn-danger" id="btnExcluir">Excluir</button>
         <table class="table" id="carros">
             <thead>
                 <tr>
+                    <th></th>
                     <th>
                         ID
                     </th>
@@ -30,13 +33,11 @@
             </thead>
             <tbody>
                 <tr th:each="umCarro : ${listaCarros}">
+                    <td><input type="checkbox" th:data-id="${umCarro.id}" class="js-check"></td>
                     <td th:text="${umCarro.id}"></td>
                     <td th:text="${umCarro.marca}"></td>
                     <td th:text="${umCarro.modelo}"></td>
                     <td th:text="${umCarro.motor}"></td>
-                    <td><a th:href="@{'/carro/alterar/' + ${umCarro.id}}" class="btn btn-primary">Alterar</a>
-                        <button class="btn btn-danger js-delete" th:data-id="${umCarro.id}">Excluir</button>
-                    </td>
                 </tr>
             </tbody>
         </table>
@@ -44,21 +45,36 @@
 
     <div th:include="layout :: footer">(footer)</div>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#carros").on('click', ".js-delete", function () {
-                let button = $(this);
-                bootbox.confirm("Confirma a exclusão do registro?", function (result) {
-                    if (result) {
-                        $.ajax({
-                            url: "/carro/delete/" + button.attr("data-id"),
-                            method: "GET",
-                            success: function () {
-                                window.location.href = "/carro/";
-                            }
-                        });
-                    }
-
+        $(document).ready(function(){
+            $("#btnExcluir").on('click', function(){
+                bootbox.confirm("Confirma a exclusão do registro?", 
+                    function(result){
+                        if(result){
+                            $('input[type=checkbox]').each(function () {
+                                if(this.checked){
+                                    $.ajax({
+                                        url: '/carro/delete/' + $(this).attr("data-id"),
+                                        method: "GET",
+                                        success : function(){
+                                            window.location.href = "/carro/";
+                                        }
+                                    });
+                                }
+                            });
+                        }
                 });
+            });
+            $("#btnAlterar").on('click', function(){
+                $('input[type=checkbox]').each(function () {
+                    if(this.checked){
+                        window.location.href = "/carro/alterar/" + $(this).attr("data-id");
+                    }
+                });
+            });
+            $("#carro").on('click',"tr", function(){
+                let checkbox = $(this).find('.js-check');
+                console.log(checkbox);
+                checkbox.prop("checked",!checkbox.is(':checked'));
             });
         });
     </script>

@@ -1,12 +1,18 @@
 package br.univille.sistemabillyepantcho.dto;
 
+import br.univille.sistemabillyepantcho.entity.Cliente;
+
 public class VeiculoDTO {
 
     private long id;
+    private long clienteId;
+    private Cliente cliente;
     private String modelo;
     private String marca;
     private String cor;
     private String placa;
+
+    
     /**
      * @return the placa
      */
@@ -79,6 +85,30 @@ public class VeiculoDTO {
      */
     public void setKilometragem(float kilometragem) {
         this.kilometragem = kilometragem;
+    }
+    /**
+     * @return the clienteId
+     */
+    public long getClienteId() {
+        return clienteId;
+    }
+    /**
+     * @param clienteId the clienteId to set
+     */
+    public void setClienteId(long clienteId) {
+        this.clienteId = clienteId;
+    }
+    /**
+     * @return the cliente
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+    /**
+     * @param cliente the cliente to set
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     

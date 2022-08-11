@@ -10,9 +10,12 @@
     <div class="container">
 
         <a th:href="@{/produto/novo}" class=" btn btn-primary">Novo</a>
+        <button class="btn btn-primary" id="btnAlterar">Alterar</button>
+        <button class="btn btn-danger" id="btnExcluir">Excluir</button>
         <table class="table" id="produtos">
             <thead>
                 <tr>
+                    <th></th>
                     <th>
                         ID
                     </th>
@@ -35,15 +38,13 @@
             </thead>
             <tbody>
                 <tr th:each="umProduto : ${listaProdutos}">
+                    <td><input type="checkbox" th:data-id="${umProduto.id}" class="js-check"></td>
                     <td th:text="${umProduto.id}"></td>
                     <td th:text="${umProduto.nomeProduto}"></td>
                     <td th:text="${umProduto.marcaProduto}"></td>
                     <td th:text="${umProduto.codigoProduto}"></td>
                     <td th:text="${umProduto.valorProduto}"></td>
                     <td th:text="${umProduto.compatibilidade}"></td>
-                    <td><a th:href="@{'/produto/alterar/' + ${umProduto.id}}" class="btn btn-primary">Alterar</a>
-                        <button class="btn btn-danger js-delete" th:data-id="${umProduto.id}">Excluir</button>
-                    </td>
                 </tr>
             </tbody>
         </table>
@@ -51,21 +52,36 @@
 
     <div th:include="layout :: footer">(footer)</div>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#produtos").on('click', ".js-delete", function () {
-                let button = $(this);
-                bootbox.confirm("Confirma a exclusão do registro?", function (result) {
-                    if (result) {
-                        $.ajax({
-                            url: "/produto/delete/" + button.attr("data-id"),
-                            method: "GET",
-                            success: function () {
-                                window.location.href = "/produto/";
-                            }
-                        });
-                    }
-
+        $(document).ready(function(){
+            $("#btnExcluir").on('click', function(){
+                bootbox.confirm("Confirma a exclusão do registro?", 
+                    function(result){
+                        if(result){
+                            $('input[type=checkbox]').each(function () {
+                                if(this.checked){
+                                    $.ajax({
+                                        url: '/produto/delete/' + $(this).attr("data-id"),
+                                        method: "GET",
+                                        success : function(){
+                                            window.location.href = "/produto/";
+                                        }
+                                    });
+                                }
+                            });
+                        }
                 });
+            });
+            $("#btnAlterar").on('click', function(){
+                $('input[type=checkbox]').each(function () {
+                    if(this.checked){
+                        window.location.href = "/produto/alterar/" + $(this).attr("data-id");
+                    }
+                });
+            });
+            $("#produto").on('click',"tr", function(){
+                let checkbox = $(this).find('.js-check');
+                console.log(checkbox);
+                checkbox.prop("checked",!checkbox.is(':checked'));
             });
         });
     </script>

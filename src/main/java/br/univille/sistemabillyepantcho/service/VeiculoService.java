@@ -8,6 +8,7 @@ public interface VeiculoService {
     List<VeiculoDTO>getAll();
     VeiculoDTO save(VeiculoDTO veiculoDTO);
     VeiculoDTO buscarPeloId(long id);
+    List<VeiculoDTO>buscarVeic(long id);
     void delete(long id);
     
     

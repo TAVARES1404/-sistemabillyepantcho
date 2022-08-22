@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.univille.sistemabillyepantcho.entity.Cliente;
 import br.univille.sistemabillyepantcho.entity.ItensOrdemDeServico;
 import br.univille.sistemabillyepantcho.entity.Veiculo;
@@ -11,6 +13,7 @@ import br.univille.sistemabillyepantcho.entity.Veiculo;
 public class OrdemDeServicoDTO {
 
     private long id;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date data;
     private Cliente cliente;
     private long clienteId;

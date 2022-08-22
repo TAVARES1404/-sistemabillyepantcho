@@ -40,5 +40,11 @@ public class OrdemDeServicoImpl implements OrdemDeServicoService {
         // TODO Auto-generated method stub
         
     }
+
+    @Override
+    public OrdemDeServicoDTO buscarVeic(long id) {
+        return null;
+        
+    }
     
 }

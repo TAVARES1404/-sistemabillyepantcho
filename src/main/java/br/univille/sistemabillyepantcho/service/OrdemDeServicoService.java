@@ -10,5 +10,5 @@ public interface OrdemDeServicoService {
     OrdemDeServicoDTO save(OrdemDeServicoDTO ordemDeServico);
     OrdemDeServicoDTO buscarPeloId(long id);
     void delete(long id);
-    
+    OrdemDeServicoDTO buscarVeic(long id);
 }

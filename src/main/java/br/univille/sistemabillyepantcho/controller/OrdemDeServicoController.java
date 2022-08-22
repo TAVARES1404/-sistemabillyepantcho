@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,8 +49,35 @@ public class OrdemDeServicoController {
         dados.put("listaclientes", listaClientes);
         dados.put("listaveiculos", listaVeiculos);
         dados.put("listaproduto", listaProduto);
-        //dados.put("compatibilidadeselecionada", 0);
         return new ModelAndView("ordemdeservico/form",dados);
+    }
+
+    @PostMapping(params="buscar")
+    public ModelAndView buscarVeic(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico){
+
+        List<ClienteDTO> listaClientes = clienteService.getAll();
+        List<VeiculoDTO> listaVeiculos = veiculoService.buscarVeic(ordemdeservico.getClienteId());
+        List<ProdutoDTO> listaProduto = produtoService.getAll();
+        HashMap<String, Object> dados = new HashMap<>();
+        dados.put("listaclientes", listaClientes);
+        dados.put("listaveiculos", listaVeiculos);
+        dados.put("listaproduto", listaProduto);
+        
+        return new ModelAndView("ordemdeservico/form", dados);
+    }
+
+    @PostMapping(params="additem")
+    public ModelAndView addItem(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico){
+
+        List<ClienteDTO> listaClientes = clienteService.getAll();
+        List<VeiculoDTO> listaVeiculos = veiculoService.buscarVeic(ordemdeservico.getClienteId());
+        List<ProdutoDTO> listaProduto = produtoService.getAll();
+        HashMap<String, Object> dados = new HashMap<>();
+        dados.put("listaclientes", listaClientes);
+        dados.put("listaveiculos", listaVeiculos);
+        dados.put("listaproduto", listaProduto);
+        
+        return new ModelAndView("ordemdeservico/form", dados);
     }
     
 }

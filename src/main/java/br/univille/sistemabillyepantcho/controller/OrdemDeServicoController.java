@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.univille.sistemabillyepantcho.dto.ClienteDTO;
+import br.univille.sistemabillyepantcho.dto.ItensOrdemDeServicoDTO;
 import br.univille.sistemabillyepantcho.dto.OrdemDeServicoDTO;
 import br.univille.sistemabillyepantcho.dto.ProdutoDTO;
 import br.univille.sistemabillyepantcho.dto.VeiculoDTO;
@@ -41,14 +42,16 @@ public class OrdemDeServicoController {
     @GetMapping("/novo")
     public ModelAndView novo() {
         OrdemDeServicoDTO ordemDeServico = new OrdemDeServicoDTO();
+        ItensOrdemDeServicoDTO itensOrdemdeServico = new ItensOrdemDeServicoDTO();
         List<ClienteDTO> listaClientes = clienteService.getAll();
         List<VeiculoDTO> listaVeiculos = veiculoService.getAll();
-        List<ProdutoDTO> listaProduto = produtoService.getAll();
+        List<ProdutoDTO> listaProdutos = produtoService.getAll();
         HashMap<String, Object> dados = new HashMap<>();
         dados.put("ordemdeservico", ordemDeServico);
+        dados.put("item", itensOrdemdeServico);
         dados.put("listaclientes", listaClientes);
         dados.put("listaveiculos", listaVeiculos);
-        dados.put("listaproduto", listaProduto);
+        dados.put("listaprodutos", listaProdutos);
         return new ModelAndView("ordemdeservico/form",dados);
     }
 
@@ -57,27 +60,41 @@ public class OrdemDeServicoController {
 
         List<ClienteDTO> listaClientes = clienteService.getAll();
         List<VeiculoDTO> listaVeiculos = veiculoService.buscarVeic(ordemdeservico.getClienteId());
-        List<ProdutoDTO> listaProduto = produtoService.getAll();
+        List<ProdutoDTO> listaProdutos = produtoService.getAll();
         HashMap<String, Object> dados = new HashMap<>();
         dados.put("listaclientes", listaClientes);
         dados.put("listaveiculos", listaVeiculos);
-        dados.put("listaproduto", listaProduto);
+        dados.put("listaprodutos", listaProdutos);
+        dados.put("item", new ItensOrdemDeServicoDTO());
         
         return new ModelAndView("ordemdeservico/form", dados);
     }
-
     @PostMapping(params="additem")
-    public ModelAndView addItem(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico){
+    public ModelAndView addItem(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico, 
+    @ModelAttribute("item") ItensOrdemDeServicoDTO item){
 
+        item.setProduto(produtoService.buscarPeloId(item.getIdProduto()));
+        item.setValorTotalItem(item.getQtdFaturado()*item.getProduto().getValorProduto());
+        ordemdeservico.getListaDeServico().add(item);
         List<ClienteDTO> listaClientes = clienteService.getAll();
         List<VeiculoDTO> listaVeiculos = veiculoService.buscarVeic(ordemdeservico.getClienteId());
-        List<ProdutoDTO> listaProduto = produtoService.getAll();
+        List<ProdutoDTO> listaProdutos = produtoService.getAll();
         HashMap<String, Object> dados = new HashMap<>();
+        dados.put("item", new ItensOrdemDeServicoDTO());
         dados.put("listaclientes", listaClientes);
         dados.put("listaveiculos", listaVeiculos);
-        dados.put("listaproduto", listaProduto);
+        dados.put("listaprodutos", listaProdutos);
         
         return new ModelAndView("ordemdeservico/form", dados);
     }
+
+    @PostMapping(params="save")
+    public ModelAndView save(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico){
+        ordemdeservico.setCliente(clienteService.buscarPeloId(ordemdeservico.getClienteId()));
+        service.save(ordemdeservico);
+        return new ModelAndView("redirect:/ordemdeservico");
+    }
+
+    
     
 }

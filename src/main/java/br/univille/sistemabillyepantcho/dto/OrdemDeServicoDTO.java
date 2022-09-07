@@ -6,21 +6,46 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.univille.sistemabillyepantcho.entity.Cliente;
-import br.univille.sistemabillyepantcho.entity.ItensOrdemDeServico;
-import br.univille.sistemabillyepantcho.entity.Veiculo;
 
 public class OrdemDeServicoDTO {
 
     private long id;
+    private long produtoId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date data;
-    private Cliente cliente;
+    private ClienteDTO cliente;
     private long clienteId;
-    private Veiculo veiculo;
+    private VeiculoDTO veiculo;
+    /**
+     * @return the veiculo
+     */
+    public VeiculoDTO getVeiculo() {
+        return veiculo;
+    }
+    /**
+     * @param veiculo the veiculo to set
+     */
+    public void setVeiculo(VeiculoDTO veiculo) {
+        this.veiculo = veiculo;
+    }
     private long veiculoId;
-    private List<ItensOrdemDeServico> listaDeServico = new ArrayList<>();
+    private List<ItensOrdemDeServicoDTO> listaDeServico = new ArrayList<>();
 
+    
+    /**
+     * 
+     * @return the produtoId
+     */
+    public long getProdutoId() {
+        return produtoId;
+    }
+    /**
+     * @param produtoId the produtoId to set
+     */
+    public void setProdutoId(long produtoId) {
+        this.produtoId = produtoId;
+    }
+    
     /**
      * @return the id
      */
@@ -45,42 +70,7 @@ public class OrdemDeServicoDTO {
     public void setData(Date data) {
         this.data = data;
     }
-    /**
-     * @return the cliente
-     */
-    public Cliente getCliente() {
-        return cliente;
-    }
-    /**
-     * @param cliente the cliente to set
-     */
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-    /**
-     * @return the veiculo
-     */
-    public Veiculo getVeiculo() {
-        return veiculo;
-    }
-    /**
-     * @param veiculo the veiculo to set
-     */
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
-    }
-    /**
-     * @return the listaDeServico
-     */
-    public List<ItensOrdemDeServico> getListaDeServico() {
-        return listaDeServico;
-    }
-    /**
-     * @param listaDeServico the listaDeServico to set
-     */
-    public void setListaDeServico(List<ItensOrdemDeServico> listaDeServico) {
-        this.listaDeServico = listaDeServico;
-    }
+    
     /**
      * @return the clienteId
      */
@@ -104,6 +94,30 @@ public class OrdemDeServicoDTO {
      */
     public void setVeiculoId(long veiculoId) {
         this.veiculoId = veiculoId;
+    }
+    /**
+     * @return the listaDeServico
+     */
+    public List<ItensOrdemDeServicoDTO> getListaDeServico() {
+        return listaDeServico;
+    }
+    /**
+     * @param listaDeServico the listaDeServico to set
+     */
+    public void setListaDeServico(List<ItensOrdemDeServicoDTO> listaDeServico) {
+        this.listaDeServico = listaDeServico;
+    }
+    /**
+     * @return the cliente
+     */
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+    /**
+     * @param cliente the cliente to set
+     */
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
     }
 
     

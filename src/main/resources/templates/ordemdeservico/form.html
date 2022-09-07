@@ -9,42 +9,95 @@
     <nav th:replace="layout :: menu">(menu)</nav>
     <div class="container">
 
-        <form th:action="@{/ordemdeservico}" method="post">
-            <h5>Nova O.S</h5>
-            <form th:action="@{/ordemdeservico/(form)}" th:object="${ordemdeservico}" method="POST">
-                <input type="hidden" th:field="*{id}">
 
-                <div class="form-group">
-                    <label for="txtdata">Data</label>
-                    <input type="date" class="form-control" id="txtdata" th:field="*{data}">
-                </div>
+        <h5>Nova O.S</h5>
+        <form th:action="@{/ordemdeservico/(form)}" th:object="${ordemdeservico}" method="POST">
+            <input type="hidden" th:field="*{id}">
 
-                <div class="form-group">
-                    <label>Cliente:</label>
-                    <select th:field="*{clienteId}" class="form-select">
-                        <option th:each="cliente : ${listaclientes}" th:value="${cliente.id}" th:text="${cliente.nome}">
-                        </option>
+            <div class="form-group">
+                <label for="txtdata">Data</label>
+                <input type="date" class="form-control" id="txtdata" th:field="*{data}">
+            </div>
 
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label style="padding:10px">Veiculo:</label>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col" style="width:80%">
-                                <select th:field="*{veiculoId}" class="form-select" style="justify-content: center">
-                                    <option th:each="veiculo : ${listaveiculos}" th:value="${veiculo.id}"
-                                        th:text="${veiculo.modelo}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col" style="width:10%">
-                                <button name="buscar" class="btn btn-primary">Buscar</button>
-                            </div>
+            <div class="form-group">
+                <label>Cliente</label>
+                <select th:field="*{clienteId}" class="form-select">
+                    <option th:each="cliente : ${listaclientes}" th:value="${cliente.id}" th:text="${cliente.nome}">
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label style="padding:10px">Veiculo:</label>
+                <div class="container">
+                    <div class="row">
+                        <div class="col" style="width:80%">
+                            <select th:field="*{veiculoId}" class="form-select" style="justify-content: center">
+                                <option th:each="veiculo : ${listaveiculos}" th:value="${veiculo.id}"
+                                    th:text="${veiculo.modelo}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col" style="width:10%">
+                            <button name="buscar" class="btn btn-primary">Buscar</button>
                         </div>
                     </div>
-            </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Produtos Vinculados</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Quantidade</th>
+                                <th>Valor</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="umItem, stat : ${ordemdeservico.listaDeServico}">
+                                <td th:text="${umItem.produto?.nomeProduto}"></td>
+                                <td th:text="${umItem.qtdFaturado}"></td>
+                                <td th:text="${umItem.valorTotalItem}"></td>
+                                <input type="hidden" th:field="*{listaDeServico[__${stat.index}__].id}"/>
+                                <input type="hidden" th:field="*{listaDeServico[__${stat.index}__].produto.id}"/>
+                                <input type="hidden" th:field="*{listaDeServico[__${stat.index}__].produto.nomeProduto}"/>
+                                <input type="hidden" th:field="*{listaDeServico[__${stat.index}__].qtdFaturado}"/>
+                                <input type="hidden" th:field="*{listaDeServico[__${stat.index}__].valorTotalItem}"/>
+                                <td>
+                                    <button type="submit" name="removeitem" th:value="__${stat.index}__" class="btn btn-primary">Remover</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Adicionar Produtos</h5>
+                    <div class="form-group">
+                        <label>Produto</label>
+                        <select th:field="${item.idProduto}" class="form-select">
+                            <option th:each="produto : ${listaprodutos}" th:value="${produto.id}"
+                                th:text="${produto.nomeProduto}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtmarca">Quantidade</label>
+                        <input type="text" class="form-control" id="txtquantidade"  th:field="${item.qtdFaturado}">
+                    </div>
+                    <input name="additem" value="adicionar" type="submit" class="btn btn-primary">
+                </div>
+            </div>
+            <button type="submit" name="save" class="btn btn-primary">Salvar Consulta</button>
         </form>
+
     </div>
 
     <div th:include="layout :: footer">(footer)</div>

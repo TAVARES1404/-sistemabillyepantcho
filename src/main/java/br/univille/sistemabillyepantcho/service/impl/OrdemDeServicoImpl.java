@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.univille.sistemabillyepantcho.dto.OrdemDeServicoDTO;
+import br.univille.sistemabillyepantcho.entity.OrdemDeServico;
 import br.univille.sistemabillyepantcho.mapper.OrdemDeServicoMapper;
 import br.univille.sistemabillyepantcho.repository.OrdemDeServicoRepository;
 import br.univille.sistemabillyepantcho.service.OrdemDeServicoService;
@@ -25,8 +26,9 @@ public class OrdemDeServicoImpl implements OrdemDeServicoService {
 
     @Override
     public OrdemDeServicoDTO save(OrdemDeServicoDTO ordemDeServico) {
-        // TODO Auto-generated method stub
-        return null;
+        OrdemDeServico ordemDeServicoEntity = mapper.mapOrdemDeServicoDTO(ordemDeServico);
+        repository.save(ordemDeServicoEntity);
+        return mapper.mapOrdemDeServico(ordemDeServicoEntity);
     }
 
     @Override

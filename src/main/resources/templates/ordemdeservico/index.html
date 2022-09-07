@@ -33,9 +33,14 @@
             <tbody>
                 <tr th:each="umOrdemDeServico : ${listaOrdemDeServico}">
                     <td th:text="${umOrdemDeServico.id}"></td>
-                    <td th:text="${umOrdemDeServico.cliente}"></td>
-                    <td th:text="${umOrdemDeServico.veiculos}"></td>
-                    <td th:text="${umOrdemDeServico.Servicos}"></td>
+                    <td th:text="${umOrdemDeServico.data}"></td>
+                    <td th:text="${umOrdemDeServico.cliente.nome}"></td>
+                    <td th:text="${umOrdemDeServico?.veiculo?.modelo}"></td>
+                    <td><ul>
+                        <li th:each="umServico : ${umOrdemDeServico.listaDeServico}" th:text="${umServico.produto?.nomeProduto}">
+                            
+                        </li>
+                    </ul></td>
                     <td><a th:href="@{'/ordemdeservico/alterar/' + ${umOrdemDeServico.id}}" class="btn btn-primary">Alterar</a>
                         <button class="btn btn-danger js-delete" th:data-id="${umOrdemDeServico.id}">Excluir</button>
                     </td>

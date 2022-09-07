@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,11 +45,18 @@ public class OrdemDeServico {
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
     }
-    public List<ItensOrdemDeServico> getItensDeServico() {
+    
+    /**
+     * @return the listaDeServico
+     */
+    public List<ItensOrdemDeServico> getListaDeServico() {
         return listaDeServico;
     }
-    public void setItensDeServico(ArrayList<ItensOrdemDeServico> itensDeServico) {
-        this.listaDeServico = itensDeServico;
+    /**
+     * @param listaDeServico the listaDeServico to set
+     */
+    public void setListaDeServico(List<ItensOrdemDeServico> listaDeServico) {
+        this.listaDeServico = listaDeServico;
     }
     public Date getData() {
         return data;

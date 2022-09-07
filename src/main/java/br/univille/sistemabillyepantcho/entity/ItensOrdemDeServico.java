@@ -14,11 +14,10 @@ public class ItensOrdemDeServico{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int codProduto;
+    //private int codProduto;
     private int qtdFaturado;
     private float valorTotalItem;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="produto_id")
     private Produto produto;
     
     public long getId() {
@@ -34,12 +33,12 @@ public class ItensOrdemDeServico{
     public void setId(long id) {
         this.id = id;
     }
-    public int getCodProduto() {
+    /*public int getCodProduto() {
         return codProduto;
     }
     public void setCodProduto(int codProduto) {
         this.codProduto = codProduto;
-    }
+    }*/
     public int getQtdFaturado() {
         return qtdFaturado;
     }

@@ -2,13 +2,15 @@ package br.univille.sistemabillyepantcho.dto;
 
 import br.univille.sistemabillyepantcho.entity.Produto;
 
-public class ItensOrdemDeServicoDTO {
+public class ItensOrdemDeServicoDTO{
 
     private long id;
     private int codProduto;
     private int qtdFaturado;
     private float valorTotalItem;
-    private Produto produto;
+    private ProdutoDTO produto;
+    private long idProduto;
+    
     
     /**
      * @return the id
@@ -58,16 +60,29 @@ public class ItensOrdemDeServicoDTO {
     public void setValorTotalItem(float valorTotalItem) {
         this.valorTotalItem = valorTotalItem;
     }
+   
+    /**
+     * @return the idProduto
+     */
+    public long getIdProduto() {
+        return idProduto;
+    }
+    /**
+     * @param idProduto the idProduto to set
+     */
+    public void setIdProduto(long idProduto) {
+        this.idProduto = idProduto;
+    }
     /**
      * @return the produto
      */
-    public Produto getProduto() {
+    public ProdutoDTO getProduto() {
         return produto;
     }
     /**
      * @param produto the produto to set
      */
-    public void setProduto(Produto produto) {
+    public void setProduto(ProdutoDTO produto) {
         this.produto = produto;
     }
 

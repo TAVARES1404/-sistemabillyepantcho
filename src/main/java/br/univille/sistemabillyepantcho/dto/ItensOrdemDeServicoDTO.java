@@ -5,7 +5,7 @@ import br.univille.sistemabillyepantcho.entity.Produto;
 public class ItensOrdemDeServicoDTO{
 
     private long id;
-    private int codProduto;
+    //private int codProduto;
     private int qtdFaturado;
     private float valorTotalItem;
     private ProdutoDTO produto;
@@ -27,13 +27,13 @@ public class ItensOrdemDeServicoDTO{
     /**
      * @return the codProduto
      */
-    public int getCodProduto() {
+    /*public int getCodProduto() {
         return codProduto;
     }
     /**
      * @param codProduto the codProduto to set
      */
-    public void setCodProduto(int codProduto) {
+    /*public void setCodProduto(int codProduto) {
         this.codProduto = codProduto;
     }
     /**

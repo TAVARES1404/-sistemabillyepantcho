@@ -17,18 +17,13 @@ public class ItensOrdemDeServico{
     //private int codProduto;
     private int qtdFaturado;
     private float valorTotalItem;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     private Produto produto;
     
     public long getId() {
         return id;
     }
-    public Produto getProdutos() {
-        return produto;
-    }
-    public void setProdutos(Produto produtos) {
-        this.produto = produtos;
-    }
+    
 
     public void setId(long id) {
         this.id = id;
@@ -50,6 +45,16 @@ public class ItensOrdemDeServico{
     }
     public void setValorTotalItem(float valorTotalItem) {
         this.valorTotalItem = valorTotalItem;
+    }
+
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
     
     

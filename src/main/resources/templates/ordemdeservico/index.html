@@ -10,9 +10,15 @@
     <div class="container">
 
         <a th:href="@{/ordemdeservico/novo}" class=" btn btn-primary">Novo</a>
+        <button class="btn btn-primary" id="btnAlterar">Alterar</button>
+        <button class="btn btn-danger" id="btnExcluir">Excluir</button>
+
         <table class="table" id="ordemdeservico">
             <thead>
                 <tr>
+                    <th>
+
+                    </th>
                     <th>
                         ID
                     </th>
@@ -32,17 +38,18 @@
             </thead>
             <tbody>
                 <tr th:each="umOrdemDeServico : ${listaOrdemDeServico}">
+                    <td><input type="checkbox" th:data-id="${umOrdemDeServico.id}" class="js-check"></td>
                     <td th:text="${umOrdemDeServico.id}"></td>
                     <td th:text="${umOrdemDeServico.data}"></td>
                     <td th:text="${umOrdemDeServico.cliente.nome}"></td>
                     <td th:text="${umOrdemDeServico?.veiculo?.modelo}"></td>
-                    <td><ul>
-                        <li th:each="umServico : ${umOrdemDeServico.listaDeServico}" th:text="${umServico.produto?.nomeProduto}">
-                            
-                        </li>
-                    </ul></td>
-                    <td><a th:href="@{'/ordemdeservico/alterar/' + ${umOrdemDeServico.id}}" class="btn btn-primary">Alterar</a>
-                        <button class="btn btn-danger js-delete" th:data-id="${umOrdemDeServico.id}">Excluir</button>
+                    <td>
+                        <ul>
+                            <li th:each="umServico : ${umOrdemDeServico.listaDeServico}"
+                                th:text="${umServico.produto?.nomeProduto}">
+
+                            </li>
+                        </ul>
                     </td>
                 </tr>
             </tbody>
@@ -50,22 +57,41 @@
     </div>
 
     <div th:include="layout :: footer">(footer)</div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#produtos").on('click', ".js-delete", function () {
-                let button = $(this);
-                bootbox.confirm("Confirma a exclusão do registro?", function (result) {
-                    if (result) {
-                        $.ajax({
-                            url: "/produto/delete/" + button.attr("data-id"),
-                            method: "GET",
-                            success: function () {
-                                window.location.href = "/produto/";
-                            }
-                        });
-                    }
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#btnExcluir").on('click', function(){
+                bootbox.confirm("Confirma a exclusão do registro?", 
+                    function(result){
+                        if(result){
+                            $('input[type=checkbox]').each(function () {
+                                if(this.checked){
+                                    $.ajax({
+                                        url: '/ordemdeservico/delete/' + $(this).attr("data-id"),
+                                        method: "GET",
+                                        success : function(){
+                                            window.location.href = "/ordemdeservico/";
+                                        }
+                                    });
+                                }
+                            });
+                        }
                 });
+            });
+            $("#btnAlterar").on('click', function(){
+                $('input[type=checkbox]').each(function () {
+                    if(this.checked){
+                        window.location.href = "/ordemdeservico/alterar/" + $(this).attr("data-id");
+                    }
+                });
+            });
+            $("#ordemdeservico").on('click',"tr", function(){
+                let checkbox = $(this).find('.js-check');
+                console.log(checkbox.type)
+                
+                console.log("ponto1" + checkbox.is(':checked'));
+                checkbox.prop("checked",!checkbox.is(':checked'));
+                /*$(this).css( "background-color", "green" );*/
             });
         });
     </script>

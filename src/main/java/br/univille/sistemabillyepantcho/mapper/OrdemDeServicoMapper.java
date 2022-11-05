@@ -10,10 +10,10 @@ import br.univille.sistemabillyepantcho.entity.OrdemDeServico;
 @Mapper
 public interface OrdemDeServicoMapper {
 
-    List<OrdemDeServicoDTO> mapOrdemDeServico(List<OrdemDeServico> cliente);
-    List<OrdemDeServico> mapOrdemDeServicoDTO(List<OrdemDeServicoDTO> cliente);
+    List<OrdemDeServicoDTO> mapOrdemDeServico(List<OrdemDeServico> ordemDeServico);
+    List<OrdemDeServico> mapOrdemDeServicoDTO(List<OrdemDeServicoDTO> ordemDeServico);
 
-    OrdemDeServicoDTO mapOrdemDeServico(OrdemDeServico cliente);
-    OrdemDeServico mapOrdemDeServicoDTO(OrdemDeServicoDTO cliente);
+    OrdemDeServicoDTO mapOrdemDeServico(OrdemDeServico ordemDeServico);
+    OrdemDeServico mapOrdemDeServicoDTO(OrdemDeServicoDTO ordemDeServico);
     
 }

@@ -22,10 +22,23 @@ public class Produto {
     private String marcaProduto;
     private int codigoProduto;
     private float valorProduto;
+    private int quantidadeProduto;
+    public void setQuantidadeProduto(int quantidadeProduto) {
+        this.quantidadeProduto = quantidadeProduto;
+    }
     @ManyToMany(cascade = {CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(name ="produto_id")
     private List<Carro> compatibilidade = new ArrayList<>();
     
+    /**
+     * @return the quantidadeProduto
+     */
+    public int getQuantidadeProduto() {
+        return quantidadeProduto;
+    }
+    /**
+     * @param quantidadeProduto the quantidadeProduto to set
+     */
     public long getId() {
         return id;
     }

@@ -11,9 +11,22 @@ public class ProdutoDTO {
     private String marcaProduto;
     private int codigoProduto;
     private float valorProduto;
+    private int quantidadeProduto;
+    public void setQuantidadeProduto(int quantidadeProduto) {
+        this.quantidadeProduto = quantidadeProduto;
+    }
     private List<CarroDTO> compatibilidade = new ArrayList<>();
     private long idCompatibilidade;
     
+    /**
+     * @return the quantidadeProduto
+     */
+    public int getQuantidadeProduto() {
+        return quantidadeProduto;
+    }
+    /**
+     * @param quantidadeProduto the quantidadeProduto to set
+     */
     public long getIdCompatibilidade() {
         return idCompatibilidade;
     }

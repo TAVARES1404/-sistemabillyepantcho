@@ -24,9 +24,9 @@ public class OrdemDeServico {
     private long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date data;
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.REFRESH})
     private Cliente cliente;
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.REFRESH})
     private Veiculo veiculo;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "OrdemDeServico_id")

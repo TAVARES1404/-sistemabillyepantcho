@@ -1,6 +1,7 @@
 package br.univille.sistemabillyepantcho.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class OrdemDeServicoImpl implements OrdemDeServicoService {
 
     @Autowired
     private OrdemDeServicoRepository repository;
+    private VeiculoServiceImpl rs;
     private OrdemDeServicoMapper mapper = Mappers.getMapper(OrdemDeServicoMapper.class);
 
     @Override
@@ -33,20 +35,23 @@ public class OrdemDeServicoImpl implements OrdemDeServicoService {
 
     @Override
     public OrdemDeServicoDTO buscarPeloId(long id) {
-        // TODO Auto-generated method stub
-        return null;
+        Optional<OrdemDeServico> os = repository.findById(id);   
+        if (os.isPresent()){
+            OrdemDeServico ordemDeServicoEntitty = os.get();
+            return mapper.mapOrdemDeServico(ordemDeServicoEntitty);
+        }    
+        return new OrdemDeServicoDTO();
     }
 
     @Override
     public void delete(long id) {
-        // TODO Auto-generated method stub
+        repository.deleteById(id);
         
     }
 
     @Override
     public OrdemDeServicoDTO buscarVeic(long id) {
-        return null;
-        
+       return null; 
     }
     
 }

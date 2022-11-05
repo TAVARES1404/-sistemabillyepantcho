@@ -17,7 +17,7 @@ public class ItensOrdemDeServico{
     //private int codProduto;
     private int qtdFaturado;
     private float valorTotalItem;
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.REFRESH})
     private Produto produto;
     
     public long getId() {

@@ -12,16 +12,16 @@
 
         <h5>Nova O.S</h5>
         <form th:action="@{/ordemdeservico/(form)}" th:object="${ordemdeservico}" method="POST">
-            <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="${ordemdeservico.id}">
 
             <div class="form-group">
                 <label for="txtdata">Data</label>
-                <input type="date" class="form-control" id="txtdata" th:field="*{data}">
+                <input type="date" class="form-control" id="txtdata" th:field="${ordemdeservico.data}">
             </div>
 
             <div class="form-group">
                 <label>Cliente</label>
-                <select th:field="*{clienteId}" class="form-select">
+                <select th:field="${ordemdeservico.clienteId}" class="form-select">
                     <option th:each="cliente : ${listaclientes}" th:value="${cliente.id}" th:text="${cliente.nome}">
                     </option>
 
@@ -33,7 +33,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col" style="width:80%">
-                            <select th:field="*{veiculoId}" class="form-select" style="justify-content: center">
+                            <select th:field="${ordemdeservico.veiculoId}" class="form-select" style="justify-content: center">
                                 <option th:each="veiculo : ${listaveiculos}" th:value="${veiculo.id}"
                                     th:text="${veiculo.modelo}">
                                 </option>

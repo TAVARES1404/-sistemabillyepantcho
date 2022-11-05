@@ -11,4 +11,5 @@ import br.univille.sistemabillyepantcho.entity.Veiculo;
 public interface VeiculoRepository extends JpaRepository<Veiculo, Long>{
 
     List<Veiculo> findByCliente_Id(long id);
+    
 }

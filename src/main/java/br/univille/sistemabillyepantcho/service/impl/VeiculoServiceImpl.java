@@ -49,7 +49,6 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     @Override
     public List<VeiculoDTO> buscarVeic(long id) {
-        // TODO Auto-generated method stub
         return mapper.mapVeiculo(repository.findByCliente_Id(id));
     } 
 }

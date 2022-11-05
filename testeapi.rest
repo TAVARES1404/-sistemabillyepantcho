@@ -1,0 +1,41 @@
+# @name loginAPI
+POST http://localhost:8080/api/v1/auth/signin
+Content-Type: application/json
+
+{
+  "usuario": "admin",
+  "senha": "admin"
+}
+
+###
+@token = {{loginAPI.response.body.*}}
+
+###
+GET http://localhost:8080/api/v1/clientes
+Authorization: Bearer {{token}}
+###
+
+POST http://localhost:8080/api/v1/clientes
+Content-Type: application/json
+
+{
+    "nome": "Huguinho2",
+    "sexo": "Masculino"
+}
+
+###
+
+GET http://localhost:8080/api/v1/clientes/1
+
+###
+
+PUT http://localhost:8080/api/v1/clientes/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "nome": "Zezinho da Silva",
+  "sexo": "Masculino",
+  "dataNascimento": null,
+  "foto": null
+}

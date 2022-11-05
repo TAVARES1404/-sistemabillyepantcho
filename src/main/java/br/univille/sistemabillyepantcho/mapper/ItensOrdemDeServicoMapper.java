@@ -8,9 +8,9 @@ import br.univille.sistemabillyepantcho.dto.ItensOrdemDeServicoDTO;
 import br.univille.sistemabillyepantcho.entity.ItensOrdemDeServico;
 @Mapper
 public interface ItensOrdemDeServicoMapper {
-    List<ItensOrdemDeServicoDTO> mapItensOrdemDeServico(List<ItensOrdemDeServico> cliente);
-    List<ItensOrdemDeServico> mapItensOrdemDeServicoDTO(List<ItensOrdemDeServicoDTO> cliente);
+    List<ItensOrdemDeServicoDTO> mapItensOrdemDeServico(List<ItensOrdemDeServico> itensOrdemDeServicos);
+    List<ItensOrdemDeServico> mapItensOrdemDeServicoDTO(List<ItensOrdemDeServicoDTO> itensOrdemDeServicos);
 
-    ItensOrdemDeServicoDTO mapItensOrdemDeServico(ItensOrdemDeServico cliente);
-    ItensOrdemDeServico mapItensOrdemDeServicoDTO(ItensOrdemDeServicoDTO cliente);
+    ItensOrdemDeServicoDTO mapItensOrdemDeServico(ItensOrdemDeServico itensOrdemDeServicos);
+    ItensOrdemDeServico mapItensOrdemDeServicoDTO(ItensOrdemDeServicoDTO itensOrdemDeServicos);
 }

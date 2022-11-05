@@ -10,10 +10,10 @@ import br.univille.sistemabillyepantcho.entity.Produto;
 @Mapper
 public interface ProdutoMapper {
 
-    List<ProdutoDTO> mapProduto(List<Produto> cliente);
-    List<Produto> mapProdutoDTO(List<ProdutoDTO> cliente);
+    List<ProdutoDTO> mapProduto(List<Produto> produto);
+    List<Produto> mapProdutoDTO(List<ProdutoDTO> produto);
 
-    ProdutoDTO mapProduto(Produto cliente);
-    Produto mapProdutoDTO(ProdutoDTO cliente);
+    ProdutoDTO mapProduto(Produto produto);
+    Produto mapProdutoDTO(ProdutoDTO produto);
     
 }

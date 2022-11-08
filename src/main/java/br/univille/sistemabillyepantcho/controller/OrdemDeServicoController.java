@@ -76,19 +76,27 @@ public class OrdemDeServicoController {
     public ModelAndView addItem(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico, 
     @ModelAttribute("item") ItensOrdemDeServicoDTO item){
 
-        item.setProduto(produtoService.buscarPeloId(item.getIdProduto()));
-        item.setValorTotalItem(item.getQtdFaturado()*item.getProduto().getValorProduto());
-        ordemdeservico.getListaDeServico().add(item);
-        List<ClienteDTO> listaClientes = clienteService.getAll();
-        List<VeiculoDTO> listaVeiculos = veiculoService.buscarVeic(ordemdeservico.getClienteId());
-        List<ProdutoDTO> listaProdutos = produtoService.getAll();
-        HashMap<String, Object> dados = new HashMap<>();
-        dados.put("item", new ItensOrdemDeServicoDTO());
-        dados.put("listaclientes", listaClientes);
-        dados.put("listaveiculos", listaVeiculos);
-        dados.put("listaprodutos", listaProdutos);
-        
-        return new ModelAndView("ordemdeservico/form", dados);
+        ProdutoDTO p = produtoService.buscarPeloId(item.getIdProduto());
+        if (p.getQuantidadeProduto() > 0){
+
+            item.setProduto(produtoService.buscarPeloId(item.getIdProduto()));
+            item.setValorTotalItem(item.getQtdFaturado()*item.getProduto().getValorProduto());
+            ordemdeservico.getListaDeServico().add(item);
+            List<ClienteDTO> listaClientes = clienteService.getAll();
+            List<VeiculoDTO> listaVeiculos = veiculoService.buscarVeic(ordemdeservico.getClienteId());
+            List<ProdutoDTO> listaProdutos = produtoService.getAll();
+            HashMap<String, Object> dados = new HashMap<>();
+            dados.put("item", new ItensOrdemDeServicoDTO());
+            dados.put("listaclientes", listaClientes);
+            dados.put("listaveiculos", listaVeiculos);
+            dados.put("listaprodutos", listaProdutos);
+            
+            
+            
+            return new ModelAndView("ordemdeservico/form", dados);
+        }else{
+            return new ModelAndView("redirect:/ordemdeservico");
+        }
     }
 
     @PostMapping(params="save")

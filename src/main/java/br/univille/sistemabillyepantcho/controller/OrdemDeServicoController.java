@@ -42,85 +42,86 @@ public class OrdemDeServicoController {
         List<OrdemDeServicoDTO> listaOrdemDeServico = service.getAll();
         return new ModelAndView("ordemdeservico/index", "listaOrdemDeServico", listaOrdemDeServico);
     }
+
     @GetMapping("/novo")
     public ModelAndView novo() {
         OrdemDeServicoDTO ordemDeServico = new OrdemDeServicoDTO();
         ItensOrdemDeServicoDTO itensOrdemdeServico = new ItensOrdemDeServicoDTO();
         List<ClienteDTO> listaClientes = clienteService.getAll();
         List<VeiculoDTO> listaVeiculos = veiculoService.getAll();
-        List<ProdutoDTO> listaProdutos = produtoService.getAll();
+        List<ProdutoDTO> listaProdutos = produtoService.findByQuantidadeProdutoGreaterThan(0);
         HashMap<String, Object> dados = new HashMap<>();
         dados.put("ordemdeservico", ordemDeServico);
         dados.put("item", itensOrdemdeServico);
         dados.put("listaclientes", listaClientes);
         dados.put("listaveiculos", listaVeiculos);
         dados.put("listaprodutos", listaProdutos);
-        return new ModelAndView("ordemdeservico/form",dados);
+        return new ModelAndView("ordemdeservico/form", dados);
     }
 
-    @PostMapping(params="buscar")
-    public ModelAndView buscarVeic(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico){
+    @PostMapping(params = "buscar")
+    public ModelAndView buscarVeic(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico) {
 
         List<ClienteDTO> listaClientes = clienteService.getAll();
         List<VeiculoDTO> listaVeiculos = veiculoService.buscarVeic(ordemdeservico.getClienteId());
-        List<ProdutoDTO> listaProdutos = produtoService.getAll();
+        List<ProdutoDTO> listaProdutos = produtoService.findByQuantidadeProdutoGreaterThan(0);
         HashMap<String, Object> dados = new HashMap<>();
         dados.put("listaclientes", listaClientes);
         dados.put("listaveiculos", listaVeiculos);
         dados.put("listaprodutos", listaProdutos);
         dados.put("item", new ItensOrdemDeServicoDTO());
-        
+
         return new ModelAndView("ordemdeservico/form", dados);
     }
-    @PostMapping(params="additem")
-    public ModelAndView addItem(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico, 
-    @ModelAttribute("item") ItensOrdemDeServicoDTO item){
+
+    @PostMapping(params = "additem")
+    public ModelAndView addItem(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico,
+            @ModelAttribute("item") ItensOrdemDeServicoDTO item) {
 
         ProdutoDTO p = produtoService.buscarPeloId(item.getIdProduto());
-        if (p.getQuantidadeProduto() > 0){
+        if (p.getQuantidadeProduto() > 0) {
 
             item.setProduto(produtoService.buscarPeloId(item.getIdProduto()));
-            item.setValorTotalItem(item.getQtdFaturado()*item.getProduto().getValorProduto());
+            item.setValorTotalItem(item.getQtdFaturado() * item.getProduto().getValorProduto());
+            produtoService.updataQtd(item.getIdProduto(),item.getQtdFaturado());
             ordemdeservico.getListaDeServico().add(item);
             List<ClienteDTO> listaClientes = clienteService.getAll();
             List<VeiculoDTO> listaVeiculos = veiculoService.buscarVeic(ordemdeservico.getClienteId());
-            List<ProdutoDTO> listaProdutos = produtoService.getAll();
+            List<ProdutoDTO> listaProdutos = produtoService.findByQuantidadeProdutoGreaterThan(0);
             HashMap<String, Object> dados = new HashMap<>();
             dados.put("item", new ItensOrdemDeServicoDTO());
             dados.put("listaclientes", listaClientes);
             dados.put("listaveiculos", listaVeiculos);
             dados.put("listaprodutos", listaProdutos);
-            
-            
-            
+
             return new ModelAndView("ordemdeservico/form", dados);
-        }else{
+        } else {
             return new ModelAndView("redirect:/ordemdeservico");
         }
     }
 
-    @PostMapping(params="save")
-    public ModelAndView save(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico){
+    @PostMapping(params = "save")
+    public ModelAndView save(@ModelAttribute("ordemdeservico") OrdemDeServicoDTO ordemdeservico) {
         ordemdeservico.setCliente(clienteService.buscarPeloId(ordemdeservico.getClienteId()));
         ordemdeservico.setVeiculo(veiculoService.buscarPeloId(ordemdeservico.getVeiculoId()));
         service.save(ordemdeservico);
         return new ModelAndView("redirect:/ordemdeservico");
     }
 
-    @PostMapping(params = {"removeitem"})
+    @PostMapping(params = { "removeitem" })
     public ModelAndView remove(@RequestParam(name = "removeitem") int index, OrdemDeServicoDTO ordemDeServico) {
-        List<ProdutoDTO> listaProdutos = produtoService.getAll();
+        List<ProdutoDTO> listaProdutos = produtoService.findByQuantidadeProdutoGreaterThan(0);
         List<ClienteDTO> listaClientes = clienteService.getAll();
         List<VeiculoDTO> listaVeiculos = veiculoService.buscarVeic(ordemDeServico.getClienteId());
         ItensOrdemDeServicoDTO itensOrdemdeServico = new ItensOrdemDeServicoDTO();
-        HashMap <String, Object> dados = new HashMap<>();
+        HashMap<String, Object> dados = new HashMap<>();
         dados.put("listaprodutos", listaProdutos);
         dados.put("item", itensOrdemdeServico);
         dados.put("listaveiculos", listaVeiculos);
         dados.put("listaclientes", listaClientes);
         ordemDeServico.getListaDeServico().remove(index);
         dados.put("ordemdeservico", ordemDeServico);
-        return new ModelAndView("ordemDeServico/form",dados);
+        return new ModelAndView("ordemDeServico/form", dados);
     }
 
     @GetMapping("/alterar/{id}")
@@ -130,15 +131,15 @@ public class OrdemDeServicoController {
         ItensOrdemDeServicoDTO itensOrdemdeServico = new ItensOrdemDeServicoDTO();
         List<ClienteDTO> listaClientes = clienteService.getAll();
         List<VeiculoDTO> listaVeiculos = veiculoService.getAll();
-        List<ProdutoDTO> listaProdutos = produtoService.getAll();
+        List<ProdutoDTO> listaProdutos = produtoService.findByQuantidadeProdutoGreaterThan(0);
         HashMap<String, Object> dados = new HashMap<>();
         dados.put("ordemdeservico", ordemDeServico);
         dados.put("item", itensOrdemdeServico);
         dados.put("listaclientes", listaClientes);
         dados.put("listaveiculos", listaVeiculos);
         dados.put("listaprodutos", listaProdutos);
-        return new ModelAndView("ordemdeservico/form",dados);
-        
+        return new ModelAndView("ordemdeservico/form", dados);
+
     }
 
     @GetMapping("/delete/{id}")
@@ -147,6 +148,4 @@ public class OrdemDeServicoController {
         return new ModelAndView("redirect:/ordemdeservico");
     }
 
-    
-    
 }

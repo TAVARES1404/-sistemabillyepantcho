@@ -9,7 +9,6 @@
     <nav th:replace="layout :: menu">(menu)</nav>
     <div class="container">
         <div class="container_OS">
-
             <h2 class="titleOS ">Ordens de Serviços Abertas</h2>
             <table class="table" id="ordemdeservico">
                 <thead>
@@ -49,6 +48,49 @@
                                 </li>
                             </ul>
                         </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container_Product">
+
+            <h2 class="titleOS ">Controle de Estque</h2>
+            <table class="table" id="produtos">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Nome
+                        </th>
+                        <th>
+                            Marca
+                        </th>
+                        <th>
+                            Código
+                        </th>
+                        <th>
+                            Valor
+                        </th>
+                        <th>
+                            Compatibilidade
+                        </th>
+                        <th>
+                            Quantidade
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="umProduto : ${listaProdutos}">
+                        <td th:text="${umProduto.id}"></td>
+                        <td th:text="${umProduto.nomeProduto}"></td>
+                        <td th:text="${umProduto.marcaProduto}"></td>
+                        <td th:text="${umProduto.codigoProduto}"></td>
+                        <td th:text="${umProduto.valorProduto}"></td>
+                        <td th:text="${umProduto.compatibilidade}"></td>
+                        <td th:text="${umProduto.quantidadeProduto}"></td>
                     </tr>
                 </tbody>
             </table>

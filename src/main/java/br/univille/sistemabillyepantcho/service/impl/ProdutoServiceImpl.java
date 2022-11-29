@@ -47,5 +47,34 @@ public class ProdutoServiceImpl implements ProdutoService {
         repository.deleteById(id);
         
     }
-    
+
+    @Override
+    public List<ProdutoDTO> findByQuantidadeProdutoGreaterThan(int qtd) {
+
+        return mapper.mapProduto(repository.findByQuantidadeProdutoGreaterThan(qtd));
+    }
+
+    @Override
+    public void updataQtd(long id, int qtd) {
+
+        System.out.println(id+ "aqui");
+        Optional<Produto> produto = repository.findById(id);  
+        
+        if (produto.isPresent()){
+            System.out.println("aqui2");
+            Produto produtoEntitty = produto.get();
+            int qtdOld = produtoEntitty.getQuantidadeProduto();
+            System.out.println(qtdOld);
+            int qtdNew = qtdOld - qtd;
+            System.out.println(qtdNew);
+            produtoEntitty.setQuantidadeProduto(qtdNew);
+            repository.save(produtoEntitty);
+        }
+        
+    }
+
+    @Override
+    public List<ProdutoDTO> findByQuantidadeProdutoLessThan(int qtd) {
+        return mapper.mapProduto(repository.findByQuantidadeProdutoLessThanEqual(qtd));
+    }
 }

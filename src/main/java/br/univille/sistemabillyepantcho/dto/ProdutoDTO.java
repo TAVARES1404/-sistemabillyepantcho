@@ -12,12 +12,12 @@ public class ProdutoDTO {
     private int codigoProduto;
     private float valorProduto;
     private int quantidadeProduto;
-    public void setQuantidadeProduto(int quantidadeProduto) {
-        this.quantidadeProduto = quantidadeProduto;
-    }
     private List<CarroDTO> compatibilidade = new ArrayList<>();
     private long idCompatibilidade;
     
+    public void setQuantidadeProduto(int quantidadeProduto) {
+        this.quantidadeProduto = quantidadeProduto;
+    }
     /**
      * @return the quantidadeProduto
      */

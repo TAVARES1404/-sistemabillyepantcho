@@ -1,0 +1,29 @@
+version: '3'
+services:
+  webdsi2022:
+    image: teste:latest
+    depends_on:
+      - "dbmatheus"
+    ports:
+      - "8090:8080"
+    links:
+      - dbmatheus
+    environment:
+      DB_HOST: 'dbmatheus:3306'
+      DB_USER: 'root'
+      DB_PASSWORD: 'root'
+      DB_NAME: 'dsi2022'
+      SPRING_PROFILES_ACTIVE: 'prod'
+  dbmatheus:
+    container_name: dbmatheus
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'dsi2022'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'root'
+      MYSQL_ROOT_PASSWORD: 'root'
+#    ports:
+#        - '3306:3306'
+#    expose:
+#        - '3306'

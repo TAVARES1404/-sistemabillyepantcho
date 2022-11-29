@@ -9,5 +9,8 @@ public interface ProdutoService {
     ProdutoDTO save(ProdutoDTO produto);
     ProdutoDTO buscarPeloId(long id);
     void delete(long id);
+    List<ProdutoDTO> findByQuantidadeProdutoGreaterThan(int qtd);
+    List<ProdutoDTO> findByQuantidadeProdutoLessThan(int qtd);
+    void updataQtd(long id, int qtd);
     
 }
